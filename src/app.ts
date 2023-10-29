@@ -3,9 +3,9 @@ import dotenv from 'dotenv'
 dotenv.config()
 import config from 'config'
 import responseTime from 'response-time'
-// import connect from './utils/connect'
+import connect from './utils/connect'
 import logger from './utils/logger'
-// import routes from './routes'
+import routes from './routes'
 import deserializeUser from './middleware/deserializeUser'
 import { restResponseTimeHistogram, startMetricsServer } from './utils/metrics'
 import swaggerDocs from './utils/swagger'
@@ -41,9 +41,9 @@ app.get('/', (_: Request, res: Response) => {
 app.listen(port, async () => {
   logger.info(`🚀 Server running on port http://localhost:${port}`)
 
-  // await connect()
+  await connect()
 
-  // routes(app)
+  routes(app)
 
   startMetricsServer()
 
