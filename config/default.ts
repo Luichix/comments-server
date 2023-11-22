@@ -1,6 +1,6 @@
 export default {
   port: 3000,
-  dbUri: '',
+  dbUri: 'mongodb://localhost:27017/test',
   saltWorkFactor: 10,
   accessTokenTtl: '15m',
   refreshTokenTtl: '1y',
