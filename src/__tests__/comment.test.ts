@@ -63,7 +63,7 @@ describe('comment', () => {
 
     describe('given the user is logged in', () => {
       it('should return a 200 and create the comment', async () => {
-        const jwt = signJwt(userPayload)
+        const jwt = signJwt(userPayload, 'accessTokenPrivateKey')
 
         const { statusCode, body } = await supertest(app)
           .post('/api/comments')
