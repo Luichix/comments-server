@@ -29,6 +29,18 @@ import {
 function routes(app: Express) {
   /**
    * @openapi
+   * /:
+   *  get:
+   *    tags:
+   *    - Root
+   *    description: Response if the app is up and running
+   */
+  app.get('/', (_: Request, res: Response) => {
+    res.send('Hello World')
+  })
+
+  /**
+   * @openapi
    * /healthcheck:
    *  get:
    *     tags:
@@ -38,6 +50,7 @@ function routes(app: Express) {
    *       200:
    *         description: App is up and running
    */
+
   app.get('/healthcheck', (_: Request, res: Response) => res.sendStatus(200))
 
   /**

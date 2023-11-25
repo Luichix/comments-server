@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import mongoose from 'mongoose'
 import {
   CreateCommentInput,
   GetCommentsByPostSlugInput,
@@ -13,6 +12,8 @@ import {
   findAndUpdateComment,
   deleteComment
 } from '../service/comment.service'
+
+import mongoose from 'mongoose'
 
 export async function createCommentHandler(
   req: Request<object, object, CreateCommentInput['body']>,
@@ -32,7 +33,6 @@ export async function createCommentHandler(
     user: userId,
     parentComment: parentCommentId
   })
-
   return res.send(comment)
 }
 

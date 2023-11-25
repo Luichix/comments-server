@@ -1,24 +1,18 @@
-import express, { Request, Response } from 'express'
+import { Request, Response } from 'express'
 import dotenv from 'dotenv'
 dotenv.config()
 import config from 'config'
 import responseTime from 'response-time'
 import connect from './utils/connect'
 import logger from './utils/logger'
-import routes from './routes'
-import deserializeUser from './middleware/deserializeUser'
+
 import { restResponseTimeHistogram, startMetricsServer } from './utils/metrics'
 import swaggerDocs from './utils/swagger'
+import createServer from './utils/server'
 
 const port = config.get<number>('port')
 
-const app = express()
-
-app.use(express.static('build'))
-app.use(express.json({ limit: '50mb' }))
-app.use(express.urlencoded({ limit: '50mb', extended: true }))
-
-app.use(deserializeUser)
+const app = createServer()
 
 app.use(
   responseTime((req: Request, res: Response, time: number) => {
@@ -34,16 +28,11 @@ app.use(
     }
   })
 )
-app.get('/', (_: Request, res: Response) => {
-  res.send('Hello World')
-})
 
 app.listen(port, async () => {
   logger.info(`🚀 Server running on port http://localhost:${port}`)
 
   await connect()
-
-  routes(app)
 
   startMetricsServer()
 

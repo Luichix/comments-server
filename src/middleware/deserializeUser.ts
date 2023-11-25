@@ -19,7 +19,7 @@ const deserializeUser = async (
     return next()
   }
 
-  const { decoded, expired } = verifyJwt(accessToken, 'accessTokenPublicKey')
+  const { decoded, expired } = verifyJwt(accessToken)
 
   if (decoded) {
     res.locals.user = decoded
@@ -37,7 +37,7 @@ const deserializeUser = async (
       res.setHeader('x-access-token', newAccessToken)
     }
 
-    const result = verifyJwt(newAccessToken as string, 'accessTokenPublicKey')
+    const result = verifyJwt(newAccessToken as string)
 
     res.locals.user = result.decoded
     return next()
